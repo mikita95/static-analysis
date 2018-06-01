@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContext;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
+import java.util.Collection;
 
 @SpringBootApplication
 public class Analyser implements CommandLineRunner {
@@ -27,7 +27,7 @@ public class Analyser implements CommandLineRunner {
     AnalysisEventPrinter printer;
 
     @Autowired
-    List<AnalysisEventListener> listeners;
+    Collection<AnalysisEventListener> listeners;
 
     public static void main(String... args) {
         System.err.close();
