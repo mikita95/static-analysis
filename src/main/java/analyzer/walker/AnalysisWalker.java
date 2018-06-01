@@ -1,4 +1,4 @@
-package analyzer;
+package analyzer.walker;
 
 import analyzer.event.AnalysisEvent;
 import analyzer.visitor.Visitor;
@@ -23,7 +23,6 @@ public class AnalysisWalker extends SimpleFileVisitor<Path> {
 
     @Autowired
     private ApplicationEventPublisher publisher;
-
 
     @Autowired
     public void addVisitors(final List<Visitor> beanVisitors) {

@@ -14,8 +14,7 @@ public class AnalysisEvent extends ApplicationEvent {
 
     public AnalysisEvent(final Object source, final Type type) {
         super(source);
-        Objects.requireNonNull(type, "Event type is not specified");
-        this.type = type;
+        this.type = Objects.requireNonNull(type, "Event type is not specified");
     }
 
     public Optional<String> getClassName() {

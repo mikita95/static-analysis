@@ -2,6 +2,7 @@ package analyzer;
 
 import analyzer.event.AnalysisEventListener;
 import analyzer.event.AnalysisEventPrinter;
+import analyzer.walker.AnalysisWalker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
