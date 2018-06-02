@@ -2,9 +2,12 @@ package analyzer.event;
 
 import org.springframework.stereotype.Component;
 
-import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import static java.lang.String.format;
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.*;
 
 @Component
 public class PrettyAnalysisEventPrinter implements AnalysisEventPrinter {
@@ -14,25 +17,25 @@ public class PrettyAnalysisEventPrinter implements AnalysisEventPrinter {
         final var list = StreamSupport.stream(events.spliterator(), false).collect(Collectors.toList());
 
         final var statistics = list.stream()
-                .collect(Collectors.groupingBy(AnalysisEvent::getType, Collectors.counting()))
+                .collect(groupingBy(AnalysisEvent::getType, counting()))
                 .entrySet()
                 .stream()
-                .map(entry -> String.format("Analyzer detected %s %ss", entry.getValue(), entry.getKey().name()))
-                .collect(Collectors.joining("\n"));
+                .map(entry -> format("Analyzer detected %s %ss", entry.getValue(), entry.getKey().name()))
+                .collect(joining("\n"));
 
         final var messages = list.stream()
-                .collect(Collectors.groupingBy(event -> event.getClassName().orElse("Unknown class")))
+                .collect(groupingBy(event -> event.getClassName().orElse("Unknown class")))
                 .entrySet()
                 .stream()
-                .map(entry -> String.format(
+                .map(entry -> format(
                         "In class %s analyzer detected %d problems:\n%s",
                         entry.getKey(),
                         entry.getValue().size(),
                         entry.getValue().stream()
-                                .sorted(Comparator.comparing(AnalysisEvent::getType))
+                                .sorted(comparing(AnalysisEvent::getType))
                                 .map(AnalysisEvent::toString)
-                                .collect(Collectors.joining("\n"))))
-                .collect(Collectors.joining("\n\n"));
+                                .collect(joining("\n"))))
+                .collect(joining("\n\n"));
 
         return statistics + "\n\n" + messages;
     }
