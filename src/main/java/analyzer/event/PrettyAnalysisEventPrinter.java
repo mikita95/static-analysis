@@ -2,6 +2,7 @@ package analyzer.event;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -28,9 +29,10 @@ public class PrettyAnalysisEventPrinter implements AnalysisEventPrinter {
                         entry.getKey(),
                         entry.getValue().size(),
                         entry.getValue().stream()
+                                .sorted(Comparator.comparing(AnalysisEvent::getType))
                                 .map(AnalysisEvent::toString)
                                 .collect(Collectors.joining("\n"))))
-                .collect(Collectors.joining("\n"));
+                .collect(Collectors.joining("\n\n"));
 
         return statistics + "\n\n" + messages;
     }

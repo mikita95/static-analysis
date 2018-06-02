@@ -1,5 +1,6 @@
 package analyzer.event;
 
+import com.github.javaparser.Range;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.lang.Nullable;
 
@@ -11,6 +12,7 @@ public class AnalysisEvent extends ApplicationEvent {
     private final Type type;
     private String className;
     private String message;
+    private Range range;
 
     public AnalysisEvent(final Object source, final Type type) {
         super(source);
@@ -39,17 +41,29 @@ public class AnalysisEvent extends ApplicationEvent {
         return type;
     }
 
+
+    public Optional<Range> getRange() {
+        return Optional.ofNullable(range);
+    }
+
+    public AnalysisEvent setRange(@Nullable final Range range) {
+        this.range = range;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return String.format("[%s] Class %s: %s",
+        return String.format("[%s] Class %s%s: %s",
                 getType(),
                 getClassName().orElse("unknown class"),
+                getRange().map(range -> " at position " + "[" + range.toString() + "]").orElse(""),
                 getMessage().orElse("unknown message"));
     }
 
     public enum Type {
         ERROR,
-        WARNING
+        WARNING,
+        INFO
     }
 
 }

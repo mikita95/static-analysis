@@ -11,27 +11,22 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.Collection;
 
 @Component
 public class AnalysisWalker extends SimpleFileVisitor<Path> {
 
-    private final Set<Visitor> visitors = new HashSet<>();
-    private final PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:**.java");
+    private final PathMatcher javaMatcher = FileSystems.getDefault().getPathMatcher("glob:**.java");
 
     @Autowired
     private ApplicationEventPublisher publisher;
 
     @Autowired
-    public void addVisitors(final List<Visitor> beanVisitors) {
-        visitors.addAll(beanVisitors);
-    }
+    private Collection<Visitor> visitors;
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if (!matcher.matches(file)) {
+        if (!javaMatcher.matches(file)) {
             return FileVisitResult.CONTINUE;
         }
 
@@ -41,7 +36,7 @@ public class AnalysisWalker extends SimpleFileVisitor<Path> {
         } catch (ParseProblemException e) {
             final var event = new AnalysisEvent(this, AnalysisEvent.Type.ERROR)
                     .setClassName(file.toString())
-                    .setMessage("Unable to parse file: " + e.getMessage());
+                    .setMessage("unable to parse file because of error: " + e.getMessage());
             publisher.publishEvent(event);
         }
 

@@ -11,7 +11,9 @@ public class EqualIfBranchesVisitor extends Visitor {
     public void visit(IfStmt ifStmt, Void arg) {
         ifStmt.getElseStmt()
                 .filter(elseStmt -> ifStmt.getThenStmt().equals(elseStmt))
-                .ifPresent(elseStmt -> log(AnalysisEvent.Type.WARNING,
-                        range(ifStmt) + " 'If' statement has an equal 'then' and 'else' branches."));
+                .ifPresent(elseStmt -> event(
+                        AnalysisEvent.Type.WARNING,
+                        "'if' statement has an equal 'then' and 'else' branches.",
+                        ifStmt.getRange().orElse(null)));
     }
 }

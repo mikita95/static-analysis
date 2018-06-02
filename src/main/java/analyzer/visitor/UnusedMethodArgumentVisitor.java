@@ -25,6 +25,7 @@ public class UnusedMethodArgumentVisitor extends Visitor {
             return;
         }
 
+        argNames.clear();
         method.getParameters().stream()
                 .map(Parameter::getNameAsString)
                 .forEach(argNames::add);
@@ -32,7 +33,10 @@ public class UnusedMethodArgumentVisitor extends Visitor {
         method.getBody().ifPresent(block -> super.visit(block, null));
 
         argNames.stream()
-                .map(p -> String.format("argument %s in method %s is unused.", p, methodName))
-                .forEach(message -> log(AnalysisEvent.Type.WARNING, message));
+                .map(p -> String.format("argument %s in method %s is unused.", quoted(p), quoted(methodName)))
+                .forEach(message -> event(
+                        AnalysisEvent.Type.WARNING,
+                        message,
+                        method.getRange().orElse(null)));
     }
 }
