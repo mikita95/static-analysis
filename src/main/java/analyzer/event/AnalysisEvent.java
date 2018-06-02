@@ -41,7 +41,6 @@ public class AnalysisEvent extends ApplicationEvent {
         return type;
     }
 
-
     public Optional<Range> getRange() {
         return Optional.ofNullable(range);
     }
@@ -56,7 +55,7 @@ public class AnalysisEvent extends ApplicationEvent {
         return String.format("[%s] Class %s%s: %s",
                 getType(),
                 getClassName().orElse("unknown class"),
-                getRange().map(range -> " at position " + "[" + range.toString() + "]").orElse(""),
+                getRange().map(range -> " at position " + range).orElse(""),
                 getMessage().orElse("unknown message"));
     }
 

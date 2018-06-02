@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -51,7 +50,7 @@ public class Analyser implements CommandLineRunner {
 
         try {
             Files.walkFileTree(Paths.get(path), walker);
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error during analysing:\n" + e.getMessage());
             return;
         }
