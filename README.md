@@ -6,7 +6,7 @@
 `mvn package`
 
 ### Using jar
-`java -jar static-analysis.jar [DIRECTORY_PATH]`
+`java -jar static-analysis-1.0.jar [DIRECTORY_PATH]`
 
 ### Jar
 Download: [static-analysis-1.0.jar](https://github.com/mikita95/static-analysis/releases/download/v1.0/static-analysis-1.0.jar)
