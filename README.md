@@ -9,7 +9,7 @@
 `java -jar static-analysis.jar [DIRECTORY_PATH]`
 
 ### Jar
-Download: [static-analysis.jar](https://github.com/mikita95/static-analysis/releases/download/v1.0/static-analysis.jar)
+Download: [static-analysis-1.0.jar](https://github.com/mikita95/static-analysis/releases/download/v1.0/static-analysis-1.0.jar)
 
 ## Performing checks
 1. CatchExceptionIgnore - check if catch block does not rethrow exception or does not log it.
