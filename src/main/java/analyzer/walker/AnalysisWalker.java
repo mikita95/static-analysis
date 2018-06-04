@@ -4,6 +4,7 @@ import analyzer.event.AnalysisEvent;
 import analyzer.visitor.Visitor;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseProblemException;
+import com.github.javaparser.ast.CompilationUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
@@ -31,10 +32,10 @@ public class AnalysisWalker extends SimpleFileVisitor<Path> {
         }
 
         try {
-            final var compilationUnit = JavaParser.parse(file);
+            final CompilationUnit compilationUnit = JavaParser.parse(file);
             visitors.forEach(visitor -> compilationUnit.accept(visitor, null));
         } catch (ParseProblemException e) {
-            final var event = new AnalysisEvent(this, AnalysisEvent.Type.ERROR)
+            final AnalysisEvent event = new AnalysisEvent(this, AnalysisEvent.Type.ERROR)
                     .setClassName(file.toString())
                     .setMessage("unable to parse file because of error: " + e.getMessage());
             publisher.publishEvent(event);

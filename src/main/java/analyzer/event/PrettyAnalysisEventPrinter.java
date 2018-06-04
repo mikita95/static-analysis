@@ -2,6 +2,7 @@ package analyzer.event;
 
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -14,16 +15,16 @@ public class PrettyAnalysisEventPrinter implements AnalysisEventPrinter {
 
     @Override
     public String print(final Iterable<AnalysisEvent> events) {
-        final var list = StreamSupport.stream(events.spliterator(), false).collect(Collectors.toList());
+        final List<AnalysisEvent> list = StreamSupport.stream(events.spliterator(), false).collect(Collectors.toList());
 
-        final var statistics = list.stream()
+        final String statistics = list.stream()
                 .collect(groupingBy(AnalysisEvent::getType, counting()))
                 .entrySet()
                 .stream()
                 .map(entry -> format("Analyzer detected %s %ss", entry.getValue(), entry.getKey().name()))
                 .collect(joining("\n"));
 
-        final var messages = list.stream()
+        final String messages = list.stream()
                 .collect(groupingBy(event -> event.getClassName().orElse("Unknown class")))
                 .entrySet()
                 .stream()

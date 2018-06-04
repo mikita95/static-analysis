@@ -11,7 +11,7 @@ public class ConstantNamingVisitor extends Visitor {
     public void visit(FieldDeclaration n, Void arg) {
         if (n.isFinal() && n.isStatic()) {
             n.getVariables().forEach(v -> {
-                final var name = v.getNameAsString();
+                final String name = v.getNameAsString();
                 if (!name.equals(name.toUpperCase())) {
                     event(
                             AnalysisEvent.Type.INFO,

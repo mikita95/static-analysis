@@ -46,7 +46,7 @@ public class Analyser implements CommandLineRunner {
             return;
         }
 
-        final var path = args[0];
+        final String path = args[0];
 
         try {
             Files.walkFileTree(Paths.get(path), walker);

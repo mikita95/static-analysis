@@ -39,7 +39,7 @@ public class ConstantBooleanConditionVisitor extends Visitor {
 
     private boolean isConstantValue(final Expression expr) {
         if (expr.isBooleanLiteralExpr()) {
-            var value = expr.asBooleanLiteralExpr().getValue();
+            final boolean value = expr.asBooleanLiteralExpr().getValue();
             event(AnalysisEvent.Type.WARNING,
                     String.format("condition is always " + value, quoted(expr.toString())),
                     expr.getRange().orElse(null)
@@ -78,7 +78,7 @@ public class ConstantBooleanConditionVisitor extends Visitor {
             return;
         }
         if (expr.isBinaryExpr()) {
-            final var bin = expr.asBinaryExpr();
+            final BinaryExpr bin = expr.asBinaryExpr();
             analyze(bin.getLeft());
             switch (bin.getOperator()) {
                 case AND: {
@@ -115,7 +115,7 @@ public class ConstantBooleanConditionVisitor extends Visitor {
                 return true;
         }
         if (currentExpr.isBinaryExpr()) {
-            final var bin = currentExpr.asBinaryExpr();
+            final BinaryExpr bin = currentExpr.asBinaryExpr();
             if (bin.getOperator() == AND) {
                 return containsEqualWithoutUnary(expr, bin.getLeft()) || containsEqualWithoutUnary(expr, bin.getRight());
             }

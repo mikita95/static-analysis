@@ -1,6 +1,7 @@
 package analyzer.visitor;
 
 import analyzer.event.AnalysisEvent;
+import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.stmt.CatchClause;
 import com.github.javaparser.ast.stmt.ExpressionStmt;
@@ -12,7 +13,7 @@ public class CatchExceptionIgnoreVisitor extends Visitor {
 
     @Override
     public void visit(CatchClause n, Void arg) {
-        final var exception = n.getParameter();
+        final Parameter exception = n.getParameter();
 
         if ("ignored".equals(exception.getNameAsString())) {
             return;

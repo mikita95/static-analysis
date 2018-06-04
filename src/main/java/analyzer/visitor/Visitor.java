@@ -26,7 +26,7 @@ public abstract class Visitor extends VoidVisitorAdapter<Void> implements Applic
     protected final void event(final AnalysisEvent.Type type,
                                @Nullable final String message,
                                @Nullable final Range range) {
-        final var event = new AnalysisEvent(this, type)
+        final AnalysisEvent event = new AnalysisEvent(this, type)
                 .setMessage(message)
                 .setRange(range)
                 .setClassName(className);

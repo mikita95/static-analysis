@@ -20,7 +20,7 @@ public class UnusedMethodArgumentVisitor extends Visitor {
 
     @Override
     public void visit(MethodDeclaration method, Void arg) {
-        final var methodName = method.getNameAsString();
+        final String methodName = method.getNameAsString();
         if ("main".equals(methodName)) {
             return;
         }
