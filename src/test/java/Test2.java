@@ -27,4 +27,10 @@ public class Test2 {
             throw rethrownException;
         }
     }
+
+    private void method() {
+        while (true) {
+            return;
+        }
+    }
 }

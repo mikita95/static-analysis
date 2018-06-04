@@ -59,6 +59,22 @@ public class AnalysisEvent extends ApplicationEvent {
                 getMessage().orElse("unknown message"));
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AnalysisEvent that = (AnalysisEvent) o;
+        return type == that.type &&
+                Objects.equals(className, that.className) &&
+                Objects.equals(message, that.message) &&
+                Objects.equals(range, that.range);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, className, message, range);
+    }
+
     public enum Type {
         ERROR,
         WARNING,
