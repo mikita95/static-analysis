@@ -7,7 +7,7 @@
     <groupId>ru.itmo.markovnikov</groupId>
     <artifactId>static-analysis</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <javaparser.version>3.6.7</javaparser.version>
